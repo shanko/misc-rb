@@ -1,4 +1,4 @@
-#!/us/bin/env ruby
+#!/usr/bin/env ruby
 
 # http://www.raspberrypi-spy.co.uk/2012/09/checking-your-raspberry-pi-board-version/
 # Model and PCB Revision,  RAM,  Hardware Revision Code from /proc/cpuinfo
@@ -10,18 +10,18 @@ RPI_CPU = [
 { :model => 'Model B Rev 2',     :ram => '512MB',  :revision_code => ['000d', '000e', '000f']},
 { :model => 'Model B+',          :ram => '512MB',  :revision_code => ['0010', '0013', '900032']},
 { :model => 'Compute Module  ',  :ram => '512MB',  :revision_code => ['0011']},
-{ :model => 'Compute Module',    :ram => '512MB',  :revision_code => ['0014 (Embest, China)']},
+{ :model => 'Compute Module',    :ram => '512MB',  :revision_code => ['0014', '(Embest, China)']},
 { :model => 'Model A+',          :ram => '256MB',  :revision_code => ['0012']},
-{ :model => 'Model A+',          :ram => '256MB',  :revision_code => ['0015 (Embest, China)']},
-{ :model => 'Model A+',          :ram => '512MB',  :revision_code => ['0015 (Embest, China)']},
+{ :model => 'Model A+',          :ram => '256MB',  :revision_code => ['0015', '(Embest, China)']},
+{ :model => 'Model A+',          :ram => '512MB',  :revision_code => ['0015', '(Embest, China)']},
 { :model => 'Pi 2 Model B v1.1', :ram => '1GB',    :revision_code => ['a01041', '(Sony, UK)']},
 { :model => 'Pi 2 Model B v1.1', :ram => '1GB',    :revision_code => ['a21041', '(Embest, China)']},
 { :model => 'Pi 2 Model B v1.2', :ram => '1GB',    :revision_code => ['a22042']},
 { :model => 'Pi Zero v1.2',      :ram => '512MB',  :revision_code => ['900092']},
 { :model => 'Pi Zero v1.3',      :ram => '512MB',  :revision_code => ['900093']},
 { :model => 'Pi Zero W',         :ram => '512MB',  :revision_code => ['0x9000C1']},
-{ :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a02082 (Sony, UK)']},
-{ :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a22082 (Embest, China)']},
+{ :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a02082', '(Sony, UK)']},
+{ :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a22082', '(Embest, China)']},
 { :model => 'Model B Rev 1 ECN0001 (no fuses, D14 removed)',  :ram => '256MB',  :revision_code => ['0003']},
 ]
 
@@ -29,6 +29,8 @@ RPI_CPU = [
 
 rev  = `grep Revision /proc/cpuinfo`
 code = (rev.split(':')[1]).strip
+
+## TODO: Handle revision code = '0015' properly for different RAM sizes
 
 RPI_CPU.each do |hash|
   if (hash[:revision_code].include?(code))
