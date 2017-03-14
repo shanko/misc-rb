@@ -21,7 +21,7 @@ module RaspiVersion
     { :model => 'Pi 2 Model B v1.2', :ram => '1GB',    :revision_code => ['a22042']},
     { :model => 'Pi Zero v1.2',      :ram => '512MB',  :revision_code => ['900092']},
     { :model => 'Pi Zero v1.3',      :ram => '512MB',  :revision_code => ['900093']},
-    { :model => 'Pi Zero W',         :ram => '512MB',  :revision_code => ['0x9000C1']},
+    { :model => 'Pi Zero W',         :ram => '512MB',  :revision_code => ['9000c1']},
     { :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a02082', '(Sony, UK)']},
     { :model => 'Pi 3 Model B',      :ram => '1GB',    :revision_code => ['a22082', '(Embest, China)']},
     { :model => 'Model B Rev 1 ECN0001 (no fuses, D14 removed)',  :ram => '256MB',  :revision_code => ['0003']},
@@ -41,13 +41,16 @@ module RaspiVersion
     RPI_CPU.each do |hash|
       return hash if (hash[:revision_code].include?(code))
     end
+
+    return {code => "Unknown Version"}
   end
 
 end
 
 if __FILE__ == $0
+require 'pp'
   include RaspiVersion
-  p RaspiVersion.get_revision
+  pp RaspiVersion.get_revision
 end
 
 
